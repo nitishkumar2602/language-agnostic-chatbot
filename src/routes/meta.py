@@ -1,7 +1,12 @@
-from ..app import app
-from ..app import VERSION
-from flask import jsonify, render_template
+from flask import redirect, url_for
 
-@app.get("/")
-def read_root():
-    return render_template("home.jinja")
+from ..app import app
+
+__all__ = ("robots_txt",)
+
+
+@app.get("/robots.txt")
+def robots_txt():
+    response = redirect(url_for("static", filename="robots.txt"))
+    response.headers["Content-Type"] = "text/plain"
+    return response

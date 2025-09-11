@@ -63,6 +63,8 @@
 
 {% block scripts %}
 <script>
+    let activeTab = "{{ active_tab }}";
+
     const loginTab = document.getElementById("loginTab");
     const registerTab = document.getElementById("registerTab");
     const loginForm = document.getElementById("loginForm");
@@ -70,33 +72,46 @@
     const toggleDark = document.getElementById("toggleDark");
     const themeIcon = document.getElementById("themeIcon");
 
-    loginTab.addEventListener("click", () => {
+    function showLogin() {
         loginForm.classList.remove("hidden");
         registerForm.classList.add("hidden");
-        loginForm.classList.add("animate__fadeIn"); loginTab.classList.add("text-blue-600", "border-blue-600");
+        loginForm.classList.add("animate__fadeIn");
+        loginTab.classList.add("text-blue-600", "border-blue-600");
         loginTab.classList.remove("text-gray-500", "dark:text-gray-400", "border-transparent");
         registerTab.classList.add("text-gray-500", "dark:text-gray-400", "border-transparent");
         registerTab.classList.remove("text-blue-600", "border-blue-600");
-    });
+        activeTab = "login";
+    }
 
-    registerTab.addEventListener("click", () => {
+    function showRegister() {
         registerForm.classList.remove("hidden");
         loginForm.classList.add("hidden");
-        registerForm.classList.add("animate__fadeIn"); registerTab.classList.add("text-blue-600", "border-blue-600");
+        registerForm.classList.add("animate__fadeIn");
+        registerTab.classList.add("text-blue-600", "border-blue-600");
         registerTab.classList.remove("text-gray-500", "dark:text-gray-400", "border-transparent");
         loginTab.classList.add("text-gray-500", "dark:text-gray-400", "border-transparent");
         loginTab.classList.remove("text-blue-600", "border-blue-600");
-    });
+        activeTab = "register";
+    }
 
-    toggleDark.addEventListener("click", () => {
+    function toggleTheme() {
         document.documentElement.classList.toggle("dark");
         if (document.documentElement.classList.contains("dark")) {
-            themeIcon.classList.remove("fa-moon");
-            themeIcon.classList.add("fa-sun");
+            themeIcon.classList.replace("fa-moon", "fa-sun");
         } else {
-            themeIcon.classList.remove("fa-sun");
-            themeIcon.classList.add("fa-moon");
+            themeIcon.classList.replace("fa-sun", "fa-moon");
         }
-    });
+    }
+
+    loginTab.addEventListener("click", showLogin);
+    registerTab.addEventListener("click", showRegister);
+    toggleDark.addEventListener("click", toggleTheme);
+
+    if (activeTab === "register") {
+        showRegister();
+    } else {
+        showLogin();
+    }
 </script>
+
 {% endblock %}
