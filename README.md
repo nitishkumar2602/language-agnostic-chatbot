@@ -1,2 +1,10 @@
-# language-agnostic-chatbot
-Smart India Hackathon 2025
+# WIP
+
+## To run:
+
+```bash
+pip install -r requirements.txt
+```
+```bash
+python main.py
+```
