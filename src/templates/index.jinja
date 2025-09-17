@@ -6,12 +6,21 @@
 
 <nav class="w-full bg-white dark:bg-gray-800 shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50">
     <h1 class="text-xl font-bold text-blue-600">Language Agnostic Chatbot</h1>
+    {% if user.is_authenticated %}
+    <div class="space-x-4">
+        <a href="{{ url_for('chat') }}"
+            class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">Go to Chat</a>
+        <a href="{{ url_for('logout') }}"
+            class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 dark:hover:bg-gray-700 transition">Logout</a>
+    </div>
+    {% else %}
     <div class="space-x-4">
         <a href="{{ url_for('login') }}"
             class="px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 transition">Login</a>
         <a href="{{ url_for('register') }}"
             class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600 font-medium hover:bg-blue-50 dark:hover:bg-gray-700 transition">Register</a>
     </div>
+    {% endif %}
 </nav>
 
 
@@ -25,9 +34,14 @@
         Ask anything about fees, scholarships, timetables, or campus updates, and get answers instantly, anytime.
     </p>
     <div class="mt-8">
+        {% if user.is_authenticated %}
+        <a href="{{ url_for('chat') }}"
+            class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Go to Chat</a>
+        {% else %}
         <a href="{{ url_for('register') }}"
             class="px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">Try It
             Now</a>
+        {% endif %}
     </div>
 </section>
 

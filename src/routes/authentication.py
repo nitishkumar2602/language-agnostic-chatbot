@@ -65,3 +65,12 @@ def register_post():
     else:
         flash("Please fill out all fields.", "danger")
         return redirect(url_for("register"))
+
+
+@app.get("/logout/")
+@app.post("/logout/")
+@login_required
+def logout():
+    logout_user()
+    flash("You have been logged out.", "info")
+    return redirect(url_for("index"))
