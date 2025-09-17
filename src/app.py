@@ -5,6 +5,7 @@ from flask import Flask
 from flask_caching import Cache
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from rich.logging import RichHandler
 
 with open("version.txt") as version_file:
@@ -25,6 +26,16 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL", "sqlite:///sit
 cache = Cache(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+login_manager = LoginManager(app)
+
+login_manager.login_view = "login"
+login_manager.login_message_category = "info"
+
+@login_manager.user_loader
+def load_user(user_id: str | int):
+    from .models import Users
+
+    return db.session.execute(db.select(Users).filter_by(id=int(user_id))).scalar_one_or_none()
 
 from .models import *  # noqa: E402, F403
 from .routes import *  # noqa: E402, F403

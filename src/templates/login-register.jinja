@@ -17,41 +17,38 @@
             <button id="registerTab"
                 class="w-1/2 pb-2 text-center text-lg font-semibold border-b-2 border-transparent text-gray-500 dark:text-gray-400 hover:text-blue-600 focus:outline-none">Register</button>
         </div>
-        <form id="loginForm" class="space-y-4 animate__animated animate__fadeIn">
+        <form id="loginForm" class="space-y-4 animate__animated animate__fadeIn" method="POST" action="{{ url_for('login_post') }}">
+            {{ login_form.hidden_tag() }}
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                <input type="email" placeholder="Enter your email"
+                <input id="login-email" name="email" type="email" placeholder="Enter your email"
                     class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                <input type="password" placeholder="Enter your password"
+                <input id="login-password" name="password" type="password" placeholder="Enter your password"
                     class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
-            <div class="flex items-center">
-                <input id="remember" type="checkbox"
-                    class="h-4 w-4 text-blue-600 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-blue-500">
-                <label for="remember" class="ml-2 text-sm text-gray-600 dark:text-gray-300">Remember Me</label>
-            </div> <button
-                class="w-full py-2 mt-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Login</button>
+            <button id="login-submit" type="submit" class="w-full py-2 mt-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Login</button>
         </form>
-        <form id="registerForm" class="space-y-4 hidden animate__animated animate__fadeIn">
+        <form id="registerForm" class="space-y-4 hidden animate__animated animate__fadeIn" method="POST" action="{{ url_for('register_post') }}">
+            {{ register_form.hidden_tag() }}
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
-                <input type="text" placeholder="Enter your name"
+                <input id="register-name" type="text" placeholder="Enter your name"
                     class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                <input type="email" placeholder="Enter your email"
+                <input id="register-email" type="email" placeholder="Enter your email"
                     class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
-                <input type="password" placeholder="Create a password"
+                <input id="register-password" type="password" placeholder="Create a password"
                     class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             </div>
-            <button
+            <button id="register-submit" type="submit"
                 class="w-full py-2 mt-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">Register</button>
         </form>
     </div>
