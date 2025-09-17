@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from flask_login import UserMixin
 from sqlalchemy import DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
-from flask_login import UserMixin
 
 from ..app import db
 

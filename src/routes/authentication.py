@@ -1,9 +1,8 @@
-from flask import render_template
+from flask import flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 
-from ..app import app, db, Users
+from ..app import Users, app, db
 from ..forms import LoginForm, RegisterForm
-from flask import request, flash, redirect, url_for
-from flask_login import login_user, logout_user, login_required, current_user
 
 __all__ = ("register", "login", "login_post", "register_post")
 
@@ -45,10 +44,15 @@ def login_post():
 def register_post():
     register_form = RegisterForm()
 
-    if register_form.validate_on_submit() and register_form.email.data and register_form.password.data and register_form.full_name.data:
+    if (
+        register_form.validate_on_submit()
+        and register_form.email.data
+        and register_form.password.data
+        and register_form.full_name.data
+    ):
         existing_user = db.session.execute(db.select(Users).filter_by(email=register_form.email.data)).scalar_one_or_none()
         if existing_user is None:
-            new_user = Users(name=register_form.full_name.data, email=register_form.email.data, passowrd=register_form.password.data)
+            new_user = Users(name=register_form.full_name.data, email=register_form.email.data, password=register_form.password.data)
 
             db.session.add(new_user)
             db.session.commit()
@@ -59,5 +63,5 @@ def register_post():
             flash("A user with that email already exists.", "danger")
             return redirect(url_for("register"))
     else:
-        print(register_form.errors)
-    return redirect(url_for("login"))
+        flash("Please fill out all fields.", "danger")
+        return redirect(url_for("register"))
