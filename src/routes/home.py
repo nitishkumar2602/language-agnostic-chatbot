@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from ..app import app
 
-__all__ = ("index",)
+__all__ = ("index", "chat")
 
 
 @app.get("/")
